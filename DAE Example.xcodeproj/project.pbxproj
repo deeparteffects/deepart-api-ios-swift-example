@@ -1,0 +1,454 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0B8E6240241281E40B5D7F22 /* Pods_DAE_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2781C27734568CC23361DAF1 /* Pods_DAE_Example.framework */; };
+		E17150B61F2F8E0A00C331DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17150B51F2F8E0A00C331DF /* AppDelegate.swift */; };
+		E17150B81F2F8E0A00C331DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17150B71F2F8E0A00C331DF /* ViewController.swift */; };
+		E17150BB1F2F8E0A00C331DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E17150B91F2F8E0A00C331DF /* Main.storyboard */; };
+		E17150BE1F2F8E0A00C331DF /* DAE_Example.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E17150BC1F2F8E0A00C331DF /* DAE_Example.xcdatamodeld */; };
+		E17150C01F2F8E0A00C331DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17150BF1F2F8E0A00C331DF /* Assets.xcassets */; };
+		E17150C31F2F8E0A00C331DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E17150C11F2F8E0A00C331DF /* LaunchScreen.storyboard */; };
+		E199AA1C1F336EB400843963 /* DAEDeepArtEffectsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E199AA141F336EB400843963 /* DAEDeepArtEffectsClient.swift */; };
+		E199AA1D1F336EB400843963 /* DAEError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E199AA151F336EB400843963 /* DAEError.swift */; };
+		E199AA1E1F336EB400843963 /* DAEResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E199AA161F336EB400843963 /* DAEResult.swift */; };
+		E199AA1F1F336EB400843963 /* DAEStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E199AA171F336EB400843963 /* DAEStyle.swift */; };
+		E199AA201F336EB400843963 /* DAEStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E199AA181F336EB400843963 /* DAEStyles.swift */; };
+		E199AA211F336EB400843963 /* DAEUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E199AA191F336EB400843963 /* DAEUploadRequest.swift */; };
+		E199AA221F336EB400843963 /* DAEUploadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E199AA1A1F336EB400843963 /* DAEUploadResponse.swift */; };
+		E199AA231F336EB400843963 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = E199AA1B1F336EB400843963 /* Empty.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		04E58003DC713824D8E60C2D /* Pods-DAE Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DAE Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-DAE Example/Pods-DAE Example.release.xcconfig"; sourceTree = "<group>"; };
+		1F1E3E7E085B94BB1A18F509 /* Pods-DAE Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DAE Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DAE Example/Pods-DAE Example.debug.xcconfig"; sourceTree = "<group>"; };
+		2781C27734568CC23361DAF1 /* Pods_DAE_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DAE_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E17150B21F2F8E0A00C331DF /* DAE Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DAE Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E17150B51F2F8E0A00C331DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E17150B71F2F8E0A00C331DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E17150BA1F2F8E0A00C331DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E17150BD1F2F8E0A00C331DF /* DAE_Example.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DAE_Example.xcdatamodel; sourceTree = "<group>"; };
+		E17150BF1F2F8E0A00C331DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E17150C21F2F8E0A00C331DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E17150C41F2F8E0A00C331DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E199AA121F336EB400843963 /* AWSApiGatewayBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AWSApiGatewayBridge.h; path = "DAE Example/AWSApiGatewayBridge.h"; sourceTree = "<group>"; };
+		E199AA131F336EB400843963 /* Bridging_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridging_Header.h; sourceTree = "<group>"; };
+		E199AA141F336EB400843963 /* DAEDeepArtEffectsClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DAEDeepArtEffectsClient.swift; path = "DAE Example/DAEDeepArtEffectsClient.swift"; sourceTree = "<group>"; };
+		E199AA151F336EB400843963 /* DAEError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DAEError.swift; path = "DAE Example/DAEError.swift"; sourceTree = "<group>"; };
+		E199AA161F336EB400843963 /* DAEResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DAEResult.swift; path = "DAE Example/DAEResult.swift"; sourceTree = "<group>"; };
+		E199AA171F336EB400843963 /* DAEStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DAEStyle.swift; path = "DAE Example/DAEStyle.swift"; sourceTree = "<group>"; };
+		E199AA181F336EB400843963 /* DAEStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DAEStyles.swift; path = "DAE Example/DAEStyles.swift"; sourceTree = "<group>"; };
+		E199AA191F336EB400843963 /* DAEUploadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DAEUploadRequest.swift; path = "DAE Example/DAEUploadRequest.swift"; sourceTree = "<group>"; };
+		E199AA1A1F336EB400843963 /* DAEUploadResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DAEUploadResponse.swift; path = "DAE Example/DAEUploadResponse.swift"; sourceTree = "<group>"; };
+		E199AA1B1F336EB400843963 /* Empty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Empty.swift; path = "DAE Example/Empty.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E17150AF1F2F8E0A00C331DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B8E6240241281E40B5D7F22 /* Pods_DAE_Example.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BFC2B3D9900FDD444D9718FD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2781C27734568CC23361DAF1 /* Pods_DAE_Example.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E17150A91F2F8E0A00C331DF = {
+			isa = PBXGroup;
+			children = (
+				E199AA241F336F0B00843963 /* DAE Client */,
+				E17150B41F2F8E0A00C331DF /* DAE Example */,
+				E17150B31F2F8E0A00C331DF /* Products */,
+				EA4DF9D90FA49E55D4C3FC59 /* Pods */,
+				BFC2B3D9900FDD444D9718FD /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		E17150B31F2F8E0A00C331DF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E17150B21F2F8E0A00C331DF /* DAE Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E17150B41F2F8E0A00C331DF /* DAE Example */ = {
+			isa = PBXGroup;
+			children = (
+				E199AA131F336EB400843963 /* Bridging_Header.h */,
+				E17150B51F2F8E0A00C331DF /* AppDelegate.swift */,
+				E17150B71F2F8E0A00C331DF /* ViewController.swift */,
+				E17150B91F2F8E0A00C331DF /* Main.storyboard */,
+				E17150BF1F2F8E0A00C331DF /* Assets.xcassets */,
+				E17150C11F2F8E0A00C331DF /* LaunchScreen.storyboard */,
+				E17150C41F2F8E0A00C331DF /* Info.plist */,
+				E17150BC1F2F8E0A00C331DF /* DAE_Example.xcdatamodeld */,
+			);
+			path = "DAE Example";
+			sourceTree = "<group>";
+		};
+		E199AA241F336F0B00843963 /* DAE Client */ = {
+			isa = PBXGroup;
+			children = (
+				E199AA121F336EB400843963 /* AWSApiGatewayBridge.h */,
+				E199AA141F336EB400843963 /* DAEDeepArtEffectsClient.swift */,
+				E199AA151F336EB400843963 /* DAEError.swift */,
+				E199AA161F336EB400843963 /* DAEResult.swift */,
+				E199AA171F336EB400843963 /* DAEStyle.swift */,
+				E199AA181F336EB400843963 /* DAEStyles.swift */,
+				E199AA191F336EB400843963 /* DAEUploadRequest.swift */,
+				E199AA1A1F336EB400843963 /* DAEUploadResponse.swift */,
+				E199AA1B1F336EB400843963 /* Empty.swift */,
+			);
+			name = "DAE Client";
+			sourceTree = "<group>";
+		};
+		EA4DF9D90FA49E55D4C3FC59 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1F1E3E7E085B94BB1A18F509 /* Pods-DAE Example.debug.xcconfig */,
+				04E58003DC713824D8E60C2D /* Pods-DAE Example.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E17150B11F2F8E0A00C331DF /* DAE Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E17150C71F2F8E0A00C331DF /* Build configuration list for PBXNativeTarget "DAE Example" */;
+			buildPhases = (
+				EF070BEBD7D893F3845D5AEF /* [CP] Check Pods Manifest.lock */,
+				E17150AE1F2F8E0A00C331DF /* Sources */,
+				E17150AF1F2F8E0A00C331DF /* Frameworks */,
+				E17150B01F2F8E0A00C331DF /* Resources */,
+				52E7DA7A7125E68C049B463A /* [CP] Embed Pods Frameworks */,
+				28F5B6265C8509B529CEC881 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DAE Example";
+			productName = "DAE Example";
+			productReference = E17150B21F2F8E0A00C331DF /* DAE Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E17150AA1F2F8E0A00C331DF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Deep Art Effects GmbH";
+				TargetAttributes = {
+					E17150B11F2F8E0A00C331DF = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 6EH22R74X4;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = E17150AD1F2F8E0A00C331DF /* Build configuration list for PBXProject "DAE Example" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E17150A91F2F8E0A00C331DF;
+			productRefGroup = E17150B31F2F8E0A00C331DF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E17150B11F2F8E0A00C331DF /* DAE Example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E17150B01F2F8E0A00C331DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E17150C31F2F8E0A00C331DF /* LaunchScreen.storyboard in Resources */,
+				E17150C01F2F8E0A00C331DF /* Assets.xcassets in Resources */,
+				E17150BB1F2F8E0A00C331DF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		28F5B6265C8509B529CEC881 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DAE Example/Pods-DAE Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		52E7DA7A7125E68C049B463A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DAE Example/Pods-DAE Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF070BEBD7D893F3845D5AEF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E17150AE1F2F8E0A00C331DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E199AA201F336EB400843963 /* DAEStyles.swift in Sources */,
+				E17150BE1F2F8E0A00C331DF /* DAE_Example.xcdatamodeld in Sources */,
+				E199AA1E1F336EB400843963 /* DAEResult.swift in Sources */,
+				E17150B81F2F8E0A00C331DF /* ViewController.swift in Sources */,
+				E199AA211F336EB400843963 /* DAEUploadRequest.swift in Sources */,
+				E199AA1C1F336EB400843963 /* DAEDeepArtEffectsClient.swift in Sources */,
+				E199AA221F336EB400843963 /* DAEUploadResponse.swift in Sources */,
+				E199AA231F336EB400843963 /* Empty.swift in Sources */,
+				E199AA1F1F336EB400843963 /* DAEStyle.swift in Sources */,
+				E17150B61F2F8E0A00C331DF /* AppDelegate.swift in Sources */,
+				E199AA1D1F336EB400843963 /* DAEError.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E17150B91F2F8E0A00C331DF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E17150BA1F2F8E0A00C331DF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E17150C11F2F8E0A00C331DF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E17150C21F2F8E0A00C331DF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E17150C51F2F8E0A00C331DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "DAE Example/Bridging_Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E17150C61F2F8E0A00C331DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "DAE Example/Bridging_Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E17150C81F2F8E0A00C331DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F1E3E7E085B94BB1A18F509 /* Pods-DAE Example.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 6EH22R74X4;
+				INFOPLIST_FILE = "DAE Example/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deeparteffects.examples.ios.DAE-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DAE Example/Bridging_Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		E17150C91F2F8E0A00C331DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04E58003DC713824D8E60C2D /* Pods-DAE Example.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 6EH22R74X4;
+				INFOPLIST_FILE = "DAE Example/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deeparteffects.examples.ios.DAE-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DAE Example/Bridging_Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E17150AD1F2F8E0A00C331DF /* Build configuration list for PBXProject "DAE Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E17150C51F2F8E0A00C331DF /* Debug */,
+				E17150C61F2F8E0A00C331DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E17150C71F2F8E0A00C331DF /* Build configuration list for PBXNativeTarget "DAE Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E17150C81F2F8E0A00C331DF /* Debug */,
+				E17150C91F2F8E0A00C331DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E17150BC1F2F8E0A00C331DF /* DAE_Example.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E17150BD1F2F8E0A00C331DF /* DAE_Example.xcdatamodel */,
+			);
+			currentVersion = E17150BD1F2F8E0A00C331DF /* DAE_Example.xcdatamodel */;
+			path = DAE_Example.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E17150AA1F2F8E0A00C331DF /* Project object */;
+}
