@@ -1,15 +1,20 @@
 PODS:
-  - AWSAPIGateway (2.5.9):
-    - AWSCore (= 2.5.9)
-  - AWSCore (2.5.9)
+  - AWSAPIGateway (2.12.2):
+    - AWSCore (= 2.12.2)
+  - AWSCore (2.12.2)
 
 DEPENDENCIES:
-  - AWSAPIGateway (~> 2.5.3)
+  - AWSAPIGateway (~> 2.12.2)
+
+SPEC REPOS:
+  trunk:
+    - AWSAPIGateway
+    - AWSCore
 
 SPEC CHECKSUMS:
-  AWSAPIGateway: ed99502fc277a949939e67838abf04679b5f9945
-  AWSCore: c71840dd51f271dc0af8de8fd6f352767ebde8b4
+  AWSAPIGateway: 155bcfba0323afd1fa5c612646bd755503b4b754
+  AWSCore: bdc0933bcb1aca4a9af3352a9e6ec75b339faf71
 
-PODFILE CHECKSUM: f25f4f0bef55e032415ce42942762ccd6aca4efe
+PODFILE CHECKSUM: 4c7bc674e405244d99b6b74cec6ebbe89fdfd5fb
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.8.4

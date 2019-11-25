@@ -16,9 +16,9 @@
 #import "AWSDDOSLogger.h"
 #import <os/log.h>
 
-static AWSDDOSLogger *sharedInstance;
-
 @implementation AWSDDOSLogger
+
+static AWSDDOSLogger *sharedInstance;
 
 + (instancetype)sharedInstance {
     static dispatch_once_t AWSDDOSLoggerOnceToken;
@@ -55,16 +55,16 @@ static AWSDDOSLogger *sharedInstance;
         
         switch (logMessage->_flag) {
             case AWSDDLogFlagError     :
-                os_log_error(OS_LOG_DEFAULT, msg);
+                os_log_error(OS_LOG_DEFAULT, "%{public}s", msg);
                 break;
             case AWSDDLogFlagWarning   :
             case AWSDDLogFlagInfo      :
-                os_log_info(OS_LOG_DEFAULT, msg);
+                os_log_info(OS_LOG_DEFAULT, "%{public}s", msg);
                 break;
             case AWSDDLogFlagDebug     :
             case AWSDDLogFlagVerbose   :
             default                 :
-                os_log_debug(OS_LOG_DEFAULT, msg);
+                os_log_debug(OS_LOG_DEFAULT, "%{public}s", msg);
                 break;
         }
     }

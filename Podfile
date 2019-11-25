@@ -6,6 +6,6 @@ target 'DAE Example' do
   use_frameworks!
 
   # Pods for DAE Example
-  pod 'AWSAPIGateway', '~> 2.5.3'
+  pod 'AWSAPIGateway', '~> 2.12.2'
 
 end

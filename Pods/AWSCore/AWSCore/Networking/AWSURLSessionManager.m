@@ -82,6 +82,7 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
 
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, strong) AWSSynchronizedMutableDictionary *sessionManagerDelegates;
+@property (nonatomic) BOOL isSessionValid;
 
 @end
 
@@ -92,6 +93,10 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
                                    reason:@"`- init` is not a valid initializer. Use `- initWithConfiguration` instead."
                                  userInfo:nil];
     return nil;
+}
+
+- (void)dealloc {
+    // Do nothing
 }
 
 - (instancetype)initWithConfiguration:(AWSNetworkingConfiguration *)configuration {
@@ -114,6 +119,7 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
                                                  delegate:self
                                             delegateQueue:nil];
         _sessionManagerDelegates = [AWSSynchronizedMutableDictionary new];
+        _isSessionValid = YES;
     }
 
     return self;
@@ -136,6 +142,13 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
 }
 
 - (void)taskWithDelegate:(AWSURLSessionManagerDelegate *)delegate {
+    if (!self.session || !self.isSessionValid) {
+        delegate.taskCompletionSource.error = [NSError errorWithDomain:AWSNetworkingErrorDomain
+                                                                  code:AWSNetworkingErrorSessionInvalid
+                                                              userInfo:@{NSLocalizedDescriptionKey: @"URLSession is nil or invalidated"}];
+        return;
+    }
+
     if (delegate.downloadingFileURL) delegate.shouldWriteToFile = YES;
     delegate.responseData = nil;
     delegate.responseObject = nil;
@@ -181,6 +194,13 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
         }
 
         if (delegate.request.task) {
+            if (!self.session || !self.isSessionValid) {
+                AWSDDLogError(@"Invalid AWSURLSessionTaskType.");
+                return [AWSTask taskWithError:[NSError errorWithDomain:AWSNetworkingErrorDomain
+                                                                  code:AWSNetworkingErrorSessionInvalid
+                                                              userInfo:@{NSLocalizedDescriptionKey: @"URLSession is nil or invalidated."}]];
+            }
+
             [self.sessionManagerDelegates setObject:delegate
                                              forKey:@(((NSURLSessionTask *)delegate.request.task).taskIdentifier)];
 
@@ -202,6 +222,30 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
         }
         return nil;
     }];
+}
+
+/**
+ Invalidates the underlying NSURLSession to avoid memory leaks. Internally, calls
+ `-[NSURLSession finishTasksAndInvalidate]` so that any in-process tasks are allowed
+ to complete before invalidating.
+
+ @warning Before calling this method, make sure no method is running on this manager.
+ */
+- (void)invalidate {
+    // Invalidate the session so its strong reference to self is released.
+    self.isSessionValid = NO;
+    [self.session finishTasksAndInvalidate];
+}
+
+#pragma mark - NSURLSessionDelegate
+
+- (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(NSError *)error {
+    if (session == self.session) {
+        // If the session became invalid because of a call to `invalidate`, this should already be set, but we'll
+        // set it defensively in case there are other paths to invalidation.
+        self.isSessionValid = NO;
+        self.session = nil;
+    }
 }
 
 #pragma mark - NSURLSessionTaskDelegate
@@ -414,82 +458,83 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
     if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         
-        if (httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 ) {
+        if (httpResponse.statusCode >= 200 && httpResponse.statusCode < 300) {
             // status is good, we can keep value of shouldWriteToFile
         } else {
             // got error status code, avoid write data to disk
             delegate.shouldWriteToFile = NO;
         }
     }
-    if (delegate.shouldWriteToFile) {
+    
+    @try {
+        if (delegate.shouldWriteToFile) {
 
-        if (delegate.shouldWriteDirectly) {
-            //If set (e..g by S3 Transfer Manager), downloaded data will be wrote to the downloadingFileURL directly, if the file already exists, it will appended to the end.
-            AWSDDLogDebug(@"DirectWrite is On, downloaded data will be wrote to the downloadingFileURL directly, if the file already exists, it will appended to the end.\
-                        Original file may be modified even the downloading task has been paused/cancelled later.");
+            if (delegate.shouldWriteDirectly) {
+                //If set (e..g by S3 Transfer Manager), downloaded data will be wrote to the downloadingFileURL directly, if the file already exists, it will appended to the end.
+                AWSDDLogDebug(@"DirectWrite is On, downloaded data will be wrote to the downloadingFileURL directly, if the file already exists, it will appended to the end.\
+                            Original file may be modified even the downloading task has been paused/cancelled later.");
 
-            NSError *error = nil;
-            if ([[NSFileManager defaultManager] fileExistsAtPath:delegate.downloadingFileURL.path]) {
-                AWSDDLogDebug(@"target file already exists, will be appended at the file path: %@",delegate.downloadingFileURL);
-                delegate.responseFilehandle = [NSFileHandle fileHandleForUpdatingURL:delegate.downloadingFileURL error:&error];
-                if (error) {
-                    AWSDDLogError(@"Error: [%@]", error);
+                NSError *error = nil;
+                if ([[NSFileManager defaultManager] fileExistsAtPath:delegate.downloadingFileURL.path]) {
+                    AWSDDLogDebug(@"target file already exists, will be appended at the file path: %@",delegate.downloadingFileURL);
+                    delegate.responseFilehandle = [NSFileHandle fileHandleForUpdatingURL:delegate.downloadingFileURL error:&error];
+                    if (error) {
+                        AWSDDLogError(@"Error: [%@]", error);
+                    }
+                    [delegate.responseFilehandle seekToEndOfFile];
+
+                } else {
+                    //Create the file
+                    if (![[NSFileManager defaultManager] createFileAtPath:delegate.downloadingFileURL.path contents:nil attributes:nil]) {
+                        AWSDDLogError(@"Error: Can not create file with file path:%@",delegate.downloadingFileURL.path);
+                    }
+                    error = nil;
+                    delegate.responseFilehandle = [NSFileHandle fileHandleForWritingToURL:delegate.downloadingFileURL error:&error];
+                    if (error) {
+                        AWSDDLogError(@"Error: [%@]", error);
+                    }
                 }
-                [delegate.responseFilehandle seekToEndOfFile];
 
             } else {
-                //Create the file
-                if (![[NSFileManager defaultManager] createFileAtPath:delegate.downloadingFileURL.path contents:nil attributes:nil]) {
-                    AWSDDLogError(@"Error: Can not create file with file path:%@",delegate.downloadingFileURL.path);
+                NSError *error = nil;
+                //This is the normal case. downloaded data will be saved in a temporay folder and then moved to downloadingFileURL after downloading complete.
+                NSString *tempFileName = [NSString stringWithFormat:@"%@.%@",AWSMobileURLSessionManagerCacheDomain,[[NSProcessInfo processInfo] globallyUniqueString]];
+                NSString *tempDirPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.fileCache",AWSMobileURLSessionManagerCacheDomain]];
+
+                //Create temp folder if not exist
+                [[NSFileManager defaultManager] createDirectoryAtPath:tempDirPath withIntermediateDirectories:NO attributes:nil error:nil];
+
+                delegate.tempDownloadedFileURL  = [NSURL fileURLWithPath:[tempDirPath stringByAppendingPathComponent:tempFileName]];
+
+                //Remove temp file if it has already exists
+                if ([[NSFileManager defaultManager] fileExistsAtPath:delegate.tempDownloadedFileURL.path]) {
+                    AWSDDLogWarn(@"Warning: target file already exists, will be overwritten at the file path: %@",delegate.tempDownloadedFileURL);
+                    [[NSFileManager defaultManager] removeItemAtPath:delegate.tempDownloadedFileURL.path error:&error];
+                }
+                if (error) {
+                    AWSDDLogError(@"Error: [%@]", error);
+                }
+
+                //Create new temp file
+                if (![[NSFileManager defaultManager] createFileAtPath:delegate.tempDownloadedFileURL.path contents:nil attributes:nil]) {
+                    AWSDDLogError(@"Error: Can not create file with file path:%@",delegate.tempDownloadedFileURL.path);
                 }
                 error = nil;
-                delegate.responseFilehandle = [NSFileHandle fileHandleForWritingToURL:delegate.downloadingFileURL error:&error];
+                delegate.responseFilehandle = [NSFileHandle fileHandleForWritingToURL:delegate.tempDownloadedFileURL error:&error];
                 if (error) {
                     AWSDDLogError(@"Error: [%@]", error);
                 }
             }
-
-        } else {
-            NSError *error = nil;
-            //This is the normal case. downloaded data will be saved in a temporay folder and then moved to downloadingFileURL after downloading complete.
-            NSString *tempFileName = [NSString stringWithFormat:@"%@.%@",AWSMobileURLSessionManagerCacheDomain,[[NSProcessInfo processInfo] globallyUniqueString]];
-            NSString *tempDirPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.fileCache",AWSMobileURLSessionManagerCacheDomain]];
-
-            //Create temp folder if not exist
-            [[NSFileManager defaultManager] createDirectoryAtPath:tempDirPath withIntermediateDirectories:NO attributes:nil error:nil];
-
-            delegate.tempDownloadedFileURL  = [NSURL fileURLWithPath:[tempDirPath stringByAppendingPathComponent:tempFileName]];
-
-            //Remove temp file if it has already exists
-            if ([[NSFileManager defaultManager] fileExistsAtPath:delegate.tempDownloadedFileURL.path]) {
-                AWSDDLogWarn(@"Warning: target file already exists, will be overwritten at the file path: %@",delegate.tempDownloadedFileURL);
-                [[NSFileManager defaultManager] removeItemAtPath:delegate.tempDownloadedFileURL.path error:&error];
-            }
-            if (error) {
-                AWSDDLogError(@"Error: [%@]", error);
-            }
-
-            //Create new temp file
-            if (![[NSFileManager defaultManager] createFileAtPath:delegate.tempDownloadedFileURL.path contents:nil attributes:nil]) {
-                AWSDDLogError(@"Error: Can not create file with file path:%@",delegate.tempDownloadedFileURL.path);
-            }
-            error = nil;
-            delegate.responseFilehandle = [NSFileHandle fileHandleForWritingToURL:delegate.tempDownloadedFileURL error:&error];
-            if (error) {
-                AWSDDLogError(@"Error: [%@]", error);
-            }
         }
-
     }
-
-    //    if([response isKindOfClass:[NSHTTPURLResponse class]]) {
-    //        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-    //        if ([[[httpResponse allHeaderFields] objectForKey:@"Content-Length"] longLongValue] >= AWSMinimumDownloadTaskSize) {
-    //            completionHandler(NSURLSessionResponseBecomeDownload);
-    //            return;
-    //        }
-    //    }
-
+    @catch (NSException *exception) {
+        NSString *desc = [NSString stringWithFormat:@"Failed to write data: %@", exception];
+        NSDictionary *userInfo = @{
+                                   NSLocalizedDescriptionKey:  desc
+                                   };
+        AWSDDLogError(@"Error: [%@]", exception);
+        delegate.error = [NSError errorWithDomain:AWSNetworkingErrorDomain code:AWSNetworkingErrorUnknown userInfo: userInfo];
+    }
     completionHandler(NSURLSessionResponseAllow);
 }
 
@@ -498,7 +543,18 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
     AWSURLSessionManagerDelegate *delegate = [self.sessionManagerDelegates objectForKey:@(dataTask.taskIdentifier)];
     
     if (delegate.responseFilehandle) {
-        [delegate.responseFilehandle writeData:data];
+        @try{
+            [delegate.responseFilehandle writeData:data];
+        }
+        @catch (NSException *exception) {
+            NSString *desc = [NSString stringWithFormat:@"Failed to write data: %@", exception];
+            NSDictionary *userInfo = @{
+                                       NSLocalizedDescriptionKey:  desc
+                                       };
+            AWSDDLogError(@"Error: [%@]", exception);
+            delegate.error = [NSError errorWithDomain:AWSNetworkingErrorDomain code:AWSNetworkingErrorUnknown userInfo: userInfo];
+            [dataTask cancel];
+        }
     } else {
         if (!delegate.responseData) {
             delegate.responseData = [NSMutableData dataWithData:data];
@@ -506,7 +562,7 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
             [delegate.responseData appendData:data];
         }
     }
-
+    
     AWSNetworkingDownloadProgressBlock downloadProgress = delegate.request.downloadProgress;
     if (downloadProgress) {
 
@@ -539,13 +595,13 @@ typedef NS_ENUM(NSInteger, AWSURLSessionTaskType) {
             
             if ([request.URL.absoluteString containsString:@"cognito-idp."]) {
                 NSError *error = nil;
-                NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"Password\":\".*?\""
+                NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(Password)\":\".*?\""
                                                                                        options:NSRegularExpressionCaseInsensitive
                                                                                          error:&error];
                 [regex replaceMatchesInString:bodyString
                                       options:0
                                         range:NSMakeRange(0, bodyString.length)
-                                 withTemplate:@"Password\":\"[redacted]\""];
+                                 withTemplate:@"$1\":\"[redacted]\""];
             }
             
             if (bodyString.length <= 100 * 1024) {

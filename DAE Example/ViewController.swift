@@ -55,7 +55,7 @@ class ViewController: UIViewController {
         
         self.timerIsRunning = true
         
-        let imageData:NSData = UIImagePNGRepresentation(photoImageView.image!)! as NSData
+        let imageData:NSData = photoImageView.image!.pngData()! as NSData
         
         let randomStyleIndex = Int(arc4random_uniform(UInt32(styles.count)))
         let styleId = styles[randomStyleIndex].id
@@ -90,7 +90,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func checkSubmissionStatus(_ timer:Timer) {
+    @objc func checkSubmissionStatus(_ timer:Timer) {
         
         print("Checking for a result")
         

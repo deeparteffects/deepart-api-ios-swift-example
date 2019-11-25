@@ -111,7 +111,7 @@ typedef __nullable id(^AWSContinuationBlock)(AWSTask<ResultType> *t);
  If block returns a AWSTask, then the task returned from
  this method will not be completed until that task is completed.
  */
-+ (instancetype)taskFromExecutor:(AWSExecutor *)executor withBlock:(nullable id (^)())block;
++ (instancetype)taskFromExecutor:(AWSExecutor *)executor withBlock:(nullable id (^)(void))block;
 
 // Properties that will be set on the task once it is completed.
 
@@ -144,7 +144,7 @@ typedef __nullable id(^AWSContinuationBlock)(AWSTask<ResultType> *t);
  Enqueues the given block to be run once this task is complete.
  This method uses a default execution strategy. The block will be
  run on the thread where the previous task completes, unless the
- the stack depth is too deep, in which case it will be run on a
+ stack depth is too deep, in which case it will be run on a
  dispatch queue with default priority.
  @param block The block to be run once this task is complete.
  @returns A task that will be completed after block has run.
@@ -157,7 +157,7 @@ typedef __nullable id(^AWSContinuationBlock)(AWSTask<ResultType> *t);
  Enqueues the given block to be run once this task is complete.
  This method uses a default execution strategy. The block will be
  run on the thread where the previous task completes, unless the
- the stack depth is too deep, in which case it will be run on a
+ stack depth is too deep, in which case it will be run on a
  dispatch queue with default priority.
  @param block The block to be run once this task is complete.
  @param cancellationToken The cancellation token (optional).

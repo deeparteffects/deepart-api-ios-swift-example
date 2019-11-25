@@ -1,5 +1,5 @@
 /*
- Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License").
  You may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  express or implied. See the License for the specific language governing
  permissions and limitations under the License.
  */
- 
+
 
 import AWSCore
 import AWSAPIGateway
@@ -151,6 +151,135 @@ public class DAEDeepArtEffectsClient: AWSAPIGatewayClient {
 	    	self.configuration.baseURL = endpoint.url
 	    }
 	    self.configuration.requestInterceptors = [AWSNetworkingRequestInterceptor(), signer]
+	}
+
+	
+    /*
+     
+     
+     @param submissionId 
+     
+     return type: DAEResult
+     */
+    public func noauthResultGet(submissionId: String?) -> AWSTask<DAEResult> {
+	    let headerParameters = [
+                   "Content-Type": "application/json",
+                   "Accept": "application/json",
+                   
+	            ]
+	    
+	    var queryParameters:[String:Any] = [:]
+	    queryParameters["submissionId"] = submissionId
+	    
+	    let pathParameters:[String:Any] = [:]
+	    
+	    return self.invokeHTTPRequest("GET", urlString: "/noauth/result", pathParameters: pathParameters, queryParameters: queryParameters, headerParameters: headerParameters, body: nil, responseClass: DAEResult.self) as! AWSTask<DAEResult>
+	}
+
+	
+    /*
+     
+     
+     
+     return type: Empty
+     */
+    public func noauthResultOptions() -> AWSTask<Empty> {
+	    let headerParameters = [
+                   "Content-Type": "application/json",
+                   "Accept": "application/json",
+                   
+	            ]
+	    
+	    let queryParameters:[String:Any] = [:]
+	    
+	    let pathParameters:[String:Any] = [:]
+	    
+	    return self.invokeHTTPRequest("OPTIONS", urlString: "/noauth/result", pathParameters: pathParameters, queryParameters: queryParameters, headerParameters: headerParameters, body: nil, responseClass: Empty.self) as! AWSTask<Empty>
+	}
+
+	
+    /*
+     
+     
+     
+     return type: DAEStyles
+     */
+    public func noauthStylesGet() -> AWSTask<DAEStyles> {
+	    let headerParameters = [
+                   "Content-Type": "application/json",
+                   "Accept": "application/json",
+                   
+	            ]
+	    
+	    let queryParameters:[String:Any] = [:]
+	    
+	    let pathParameters:[String:Any] = [:]
+	    
+	    return self.invokeHTTPRequest("GET", urlString: "/noauth/styles", pathParameters: pathParameters, queryParameters: queryParameters, headerParameters: headerParameters, body: nil, responseClass: DAEStyles.self) as! AWSTask<DAEStyles>
+	}
+
+	
+    /*
+     
+     
+     
+     return type: Empty
+     */
+    public func noauthStylesOptions() -> AWSTask<Empty> {
+	    let headerParameters = [
+                   "Content-Type": "application/json",
+                   "Accept": "application/json",
+                   
+	            ]
+	    
+	    let queryParameters:[String:Any] = [:]
+	    
+	    let pathParameters:[String:Any] = [:]
+	    
+	    return self.invokeHTTPRequest("OPTIONS", urlString: "/noauth/styles", pathParameters: pathParameters, queryParameters: queryParameters, headerParameters: headerParameters, body: nil, responseClass: Empty.self) as! AWSTask<Empty>
+	}
+
+	
+    /*
+     
+     
+     @param body 
+     
+     return type: DAEUploadResponse
+     */
+    public func noauthUploadPost(body: DAEUploadRequest) -> AWSTask<DAEUploadResponse> {
+	    let headerParameters = [
+                   "Content-Type": "application/json",
+                   "Accept": "application/json",
+                   
+	            ]
+	    
+	    let queryParameters:[String:Any] = [:]
+	    
+	    let pathParameters:[String:Any] = [:]
+	    
+	    return self.invokeHTTPRequest("POST", urlString: "/noauth/upload", pathParameters: pathParameters, queryParameters: queryParameters, headerParameters: headerParameters, body: body, responseClass: DAEUploadResponse.self) as! AWSTask<DAEUploadResponse>
+	}
+
+	
+    /*
+     
+     
+     
+     return type: Empty
+     */
+    public func noauthUploadOptions() -> AWSTask<Empty> {
+	    let headerParameters = [
+                   "Content-Type": "application/json",
+                   "Accept": "application/json",
+                   
+	            ]
+	    
+	    let queryParameters:[String:Any] = [:]
+	    
+	    let pathParameters:[String:Any] = [:]
+	    
+	    return self.invokeHTTPRequest("OPTIONS", urlString: "/noauth/upload", pathParameters: pathParameters, queryParameters: queryParameters, headerParameters: headerParameters, body: nil, responseClass: Empty.self) as! AWSTask<Empty>
 	}
 
 	
